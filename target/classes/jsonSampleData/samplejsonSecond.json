@@ -1,0 +1,11 @@
+{
+"name" : "Sadik",
+"Age" : 33,
+"Adress" :{
+		"City" :"Delhi",
+		"State":"Delhi",
+		"Pin" : "6"
+	}
+
+}
+

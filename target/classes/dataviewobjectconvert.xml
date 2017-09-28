@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+    <flow name="dataviewobjectconvertFlow">
+        <dw:transform-message doc:name="Transform Message" metadata:id="71134d4b-28b9-40c2-9ce9-93d1a3a6e4f7">
+            <dw:input-payload doc:sample="jsonSampleData\samplejson.json" mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%function objectToArraySample(payload){
+	(payload)
+}
+
+%var valueFile = readUrl("classpath://jsonSampleData/samplejsonSecond.json","application/json")
+
+---
+root :{(valueFile)}]]></dw:set-payload>
+        </dw:transform-message>
+    </flow>
+    <flow name="dataviewobjectconvertFlow1">
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%var fileData = readUrl("classpath://jsonSampleData/samplejsonSecond.json","application/json")
+---
+xmlData : { (fileData) }
+]]></dw:set-payload>
+        </dw:transform-message>
+    </flow>
+</mule>
